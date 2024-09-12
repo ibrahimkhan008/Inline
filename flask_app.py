@@ -16,7 +16,7 @@ def home():
 def webhook():
     update = telegram.Update.de_json(request.get_json(force=True), bot)
     # Process the update with inline.py's dispatcher
-    updater.dispatcher.process_update(updater)
+    Updater.dispatcher.process_update(update)
     return 'OK', 200
 
 if __name__ == '__main__':
