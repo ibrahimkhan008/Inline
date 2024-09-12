@@ -8,6 +8,7 @@ import logging
 import re
 import time
 from threading import Timer
+from config import BOT_TOKEN
 
 # Enable logging
 logging.basicConfig(
@@ -239,10 +240,10 @@ def cancel(update: Update, context: CallbackContext) -> int:
 # Main function to start the bot
 
 def main() -> None:
-    # Initialize the Updater and Dispatcher
-    updater = Updater("6524666184:AAEE8BmE_NbK-Yv0EYw2tN2SZo7EWM3eh44")
+    # Initialize the Updater and Dispatcher using the token from config.py
+    updater = Updater(BOT_TOKEN)
     dispatcher = updater.dispatcher
-    
+
     # Define conversation handler with the states
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
@@ -256,13 +257,14 @@ def main() -> None:
         },
         fallbacks=[CommandHandler('cancel', cancel)]
     )
-    
+
     dispatcher.add_handler(conv_handler)
     dispatcher.add_handler(CommandHandler('alive', check_alive))
-    
+
     # Start the bot
     updater.start_polling()
     updater.idle()
+
 
 if __name__ == '__main__':
     main()
